@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-contrib/cors"
+	"github.com/khalil9022/OJT_Postgre/controller"
 )
 
 func (s *server) SetupRouter() {
@@ -9,4 +10,10 @@ func (s *server) SetupRouter() {
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"POST", "DELETE", "PUT", "GET"},
 	}))
+
+	stagingCustomerRepo := controller.NewRepository(s.DB)
+	stagingCustomerService := controller.NewService(stagingCustomerRepo)
+	stagingCustomerHandler := controller.NewHandler(stagingCustomerService)
+
+	s.Router.GET("/", stagingCustomerHandler.GetDataCustomer)
 }

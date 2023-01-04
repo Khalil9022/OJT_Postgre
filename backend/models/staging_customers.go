@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Staging_Customers struct {
-	ID                              int64     `json:"id" gorm:"not null; type: bigint"`
+	ID                              int64     `json:"id" gorm:"not null; type: bigint;AUTO_INCREMENT"`
 	ScReff                          string    `json:"sc_reff" gorm:"type: varchar(80)"`
 	ScCreateDate                    time.Time `json:"sc_create_date" gorm:"type: timestamp"`
 	ScBranchCode                    string    `json:"sc_branch_code" gorm:"type: varchar(80)"`
