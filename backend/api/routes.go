@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-contrib/cors"
-	"github.com/khalil9022/OJT_Postgre/controller"
+	"github.com/khalil9022/OJT_Postgre/controller/procesvalidation"
 )
 
 func (s *server) SetupRouter() {
@@ -11,9 +11,9 @@ func (s *server) SetupRouter() {
 		AllowMethods: []string{"POST", "DELETE", "PUT", "GET"},
 	}))
 
-	stagingCustomerRepo := controller.NewRepository(s.DB)
-	stagingCustomerService := controller.NewService(stagingCustomerRepo)
-	stagingCustomerHandler := controller.NewHandler(stagingCustomerService)
+	stagingCustomerRepo := procesvalidation.NewRepository(s.DB)
+	stagingCustomerService := procesvalidation.NewService(stagingCustomerRepo)
+	stagingCustomerHandler := procesvalidation.NewHandler(stagingCustomerService)
 
 	s.Router.GET("/", stagingCustomerHandler.GetDataCustomer)
 }
