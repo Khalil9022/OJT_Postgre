@@ -5,7 +5,7 @@ import "./style.css"
 
 export const Login = () => {
     return (
-        <Container className='h-100'>
+        <Container>
             <div className='d-flex justify-content-center align-items-center login'>
 
                 <Form className="loginform" >
@@ -19,7 +19,6 @@ export const Login = () => {
                         <Form.Label>Kata Sandi</Form.Label>
                         <Form.Control id="password" type="password" required />
                     </Form.Group>
-                    <p className="lupa-sandi">Lupa Kata Sandi?</p>
                     <Button className="loginbutton w-100" type="submit">
                         MASUK
                     </Button>
