@@ -108,8 +108,12 @@ func (r *repository) GetDataCustomer() ([]models.Staging_Customers, error) {
 		loaninterestflatchanneling, _ := strconv.ParseFloat(item.LoanInterestFlatChanneling, 32)
 		loaninteresteffectivechanneling, _ := strconv.ParseFloat(item.LoanInterestEffectiveChanneling, 32)
 		loaneffectivepaymenttype, _ := strconv.ParseInt(item.LoanEffectivePaymentType, 10, 8)
-
+		vehiclestatus, _ := strconv.ParseInt(item.VehicleStatus, 10, 8)
+		vehicledealerID, _ := strconv.ParseInt(item.VehicleDealerID, 10, 8)
 		custCode := r.generateCustCode(companycode, tglSekarangString[0:7])
+		vehicletglstnk, _ := time.Parse("2006-01-02", item.VehicleTglStnk)
+		vehicletglbpkb, _ := time.Parse("2006-01-02", item.VehicleTglBpkb)
+		collateraltypeID, _ := strconv.ParseInt(item.CollateralTypeID, 10, 64)
 
 		if sc_flag == "0" {
 			sc_flag = "1"
@@ -153,6 +157,41 @@ func (r *repository) GetDataCustomer() ([]models.Staging_Customers, error) {
 				LastModified2:        tglSekarang,
 				ModifiedBy2:          "system",
 				InputBy:              "system",
+			})
+			r.db.Create(&models.Vehicle_Data_Tabs{
+				Custcode:       custCode,
+				Brand:          item.VehicleBrand,
+				Type:           item.VehicleType,
+				Year:           item.VehicleYear,
+				Golongan:       1,
+				Jenis:          item.VehicleJenis,
+				Status:         int8(vehiclestatus),
+				Color:          item.VehicleColor,
+				PoliceNo:       item.VehiclePoliceNo,
+				EngineNo:       item.VehicleEngineNo,
+				ChasisNo:       item.VehicleChasisNo,
+				Bpkb:           item.VehicleBpkb,
+				RegisterNo:     "source",
+				Stnk:           item.VehicleStnk,
+				StnkAddress1:   "source",
+				StnkAddress2:   "source",
+				StnkCity:       item.VehicleCityDealer,
+				DealerID:       int(vehicledealerID),
+				Inputdate:      tglSekarang,
+				Inputby:        "system",
+				Lastmodified:   tglSekarang,
+				Modifiedby:     "system",
+				TglStnk:        vehicletglstnk,
+				TglBpkb:        vehicletglbpkb,
+				TglPolis:       time.Now(), //cari
+				PolisNo:        item.VehiclePoliceNo,
+				CollateralID:   collateraltypeID,
+				Ketagunan:      "source",
+				AgunanLbu:      "source",
+				Dealer:         item.VehicleDealer,
+				AddressDealer1: item.VehicleAddressDealer1,
+				AddressDealer2: item.VehicleAddressDealer2,
+				CityDealer:     item.VehicleCityDealer,
 			})
 			continue
 		}
