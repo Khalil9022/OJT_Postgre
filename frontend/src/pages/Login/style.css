@@ -60,10 +60,16 @@
 .lupa-sandi {
     color: var(--red);
     font-weight: 500;
+    text-decoration: none;
 }
 
 .daftar {
     margin-top: 1.5rem;
     font-size: 1.1rem;
     text-align: center;
+}
+
+.login,
+.container {
+    min-height: 100vh;
 }

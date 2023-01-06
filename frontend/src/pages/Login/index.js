@@ -5,8 +5,9 @@ import "./style.css"
 
 export const Login = () => {
     return (
-        <Container fluid className="main">
-            <div>
+        <Container className='h-100'>
+            <div className='d-flex justify-content-center align-items-center login'>
+
                 <Form className="loginform" >
                     <h3 className="masuk">Masuk</h3>
                     <Form.Group className="formgroup">
@@ -22,10 +23,8 @@ export const Login = () => {
                     <Button className="loginbutton w-100" type="submit">
                         MASUK
                     </Button>
-                    <Link to="/register">
-                        <p className="mb-4 daftar">Belum punya akun? Daftar</p>
-                    </Link>
                 </Form>
+
             </div>
         </Container>
     )
