@@ -1,10 +1,10 @@
 import React from 'react'
-import SidebarMenu from 'react-bootstrap-sidebar-menu';
 
-const Sidebar = () => {
+
+const Sidebars = () => {
     return (
-        <div>Sidebar</div>
+        <div>test</div>
     )
 }
 
-export default Sidebar
+export default Sidebars

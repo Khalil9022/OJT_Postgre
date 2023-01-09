@@ -27,7 +27,9 @@
 }
 
 .loginform {
-    background-color: aliceblue;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../../assets/img/login.svg) !important;
     width: 475px;
     padding: 2rem;
     border-radius: 1rem;
