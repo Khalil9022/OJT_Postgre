@@ -20,6 +20,6 @@ func (s *server) SetupRouter() {
 	generateSkalaAngsuranService := skalaangsuran.NewService(generateSkalaAngsuranRepo)
 	generateSkalaAngsuranHandler := skalaangsuran.NewHandler(generateSkalaAngsuranService)
 
-	s.Router.GET("/Customer", stagingCustomerHandler.GetDataCustomer)
+	s.Router.GET("/Customer", stagingCustomerHandler.PencairanKredit)
 	s.Router.GET("/Generate", generateSkalaAngsuranHandler.GenerateSkalaAngsuran)
 }

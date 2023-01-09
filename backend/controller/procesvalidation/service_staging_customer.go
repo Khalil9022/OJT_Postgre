@@ -3,7 +3,7 @@ package procesvalidation
 import "github.com/khalil9022/OJT_Postgre/models"
 
 type Service interface {
-	GetDataCustomer() ([]models.Staging_Customers, error)
+	PencairanKredit() ([]models.Staging_Customers, error)
 }
 
 type service struct {
@@ -14,7 +14,7 @@ func NewService(repo Repository) *service {
 	return &service{repo}
 }
 
-func (s *service) GetDataCustomer() ([]models.Staging_Customers, error) {
-	DataCustomer, err := s.repo.GetDataCustomer()
+func (s *service) PencairanKredit() ([]models.Staging_Customers, error) {
+	DataCustomer, err := s.repo.PencairanKredit()
 	return DataCustomer, err
 }

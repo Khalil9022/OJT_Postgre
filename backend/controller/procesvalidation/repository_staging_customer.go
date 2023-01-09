@@ -10,7 +10,7 @@ import (
 )
 
 type Repository interface {
-	GetDataCustomer() ([]models.Staging_Customers, error)
+	PencairanKredit() ([]models.Staging_Customers, error)
 }
 
 type repository struct {
@@ -52,7 +52,7 @@ func (r *repository) generateCustCode(companyCode string, tglSekarang string) st
 	return NewCustCode
 }
 
-func (r *repository) GetDataCustomer() ([]models.Staging_Customers, error) {
+func (r *repository) PencairanKredit() ([]models.Staging_Customers, error) {
 	currentTime := time.Now()
 	var staging_customer []models.Staging_Customers
 

@@ -14,9 +14,9 @@ func NewHandler(service Service) *Handler {
 	return &Handler{service}
 }
 
-func (h *Handler) GetDataCustomer(c *gin.Context) {
+func (h *Handler) PencairanKredit(c *gin.Context) {
 
-	dataCustomer, err := h.Service.GetDataCustomer()
+	dataCustomer, err := h.Service.PencairanKredit()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Gagal Mengambil Data",

@@ -1,6 +1,8 @@
 package main
 
-import "github.com/khalil9022/OJT_Postgre/api"
+import (
+	"github.com/khalil9022/OJT_Postgre/api"
+)
 
 func main() {
 	db, err := api.SetupDb()
@@ -9,5 +11,6 @@ func main() {
 	}
 
 	server := api.MakeServer(db)
+
 	server.RunServer()
 }

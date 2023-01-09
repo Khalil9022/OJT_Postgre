@@ -150,7 +150,7 @@ func (r *repository) ValidasiVehicleDuplicateEngine(VehicleEngineNo string) (str
 	for _, item2 := range vehicle_data_tabs {
 		if item2.EngineNo == VehicleEngineNo {
 			sc_flag = "8"
-			errorMessage = "Engine Nomor Tidak boleh publikasi"
+			errorMessage = "Engine Nomor Tidak boleh duplikat"
 			break
 		}
 	}

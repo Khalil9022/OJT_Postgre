@@ -4,6 +4,9 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/khalil9022/OJT_Postgre/controller/procesvalidation"
+	"github.com/khalil9022/OJT_Postgre/controller/skalaangsuran"
+	"github.com/robfig/cron/v3"
 	"gorm.io/gorm"
 )
 
@@ -17,6 +20,19 @@ func MakeServer(db *gorm.DB) *server {
 		Router: gin.Default(),
 		DB:     db,
 	}
+
+	//Auto Run Service
+	c := cron.New()
+	c.AddFunc("@every 1m", func() {
+		stagingCustomer := procesvalidation.NewRepository(s.DB)
+		stagingCustomer.PencairanKredit()
+	})
+
+	c.AddFunc("@every 2m", func() {
+		generateSkalaAngsuran := skalaangsuran.NewRepository(s.DB)
+		generateSkalaAngsuran.GenerateSkalaAngsuran()
+	})
+	c.Start()
 	return s
 }
 
@@ -26,4 +42,5 @@ func (s *server) RunServer() {
 	if err := s.Router.Run(":" + port); err != nil {
 		panic(err)
 	}
+
 }

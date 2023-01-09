@@ -66,6 +66,10 @@ func (r *repository) GenerateSkalaAngsuran() ([]models.Customer_Data_Tabs, error
 				principle = monthlypaymentInt - int(interest)
 				endbalance = osbalance - principle
 				duedate = duedate.AddDate(0, 0, 30)
+				if endbalance < 0 {
+					endbalance = 0
+					osbalance = osbalance + (-endbalance)
+				}
 			}
 
 			r.db.Create(&models.Skala_Rental_Tabs{
