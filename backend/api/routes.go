@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/khalil9022/OJT_Postgre/controller/procesvalidation"
+	"github.com/khalil9022/OJT_Postgre/controller/skalaangsuran"
 )
 
 func (s *server) SetupRouter() {
@@ -15,5 +16,10 @@ func (s *server) SetupRouter() {
 	stagingCustomerService := procesvalidation.NewService(stagingCustomerRepo)
 	stagingCustomerHandler := procesvalidation.NewHandler(stagingCustomerService)
 
-	s.Router.GET("/", stagingCustomerHandler.GetDataCustomer)
+	generateSkalaAngsuranRepo := skalaangsuran.NewRepository(s.DB)
+	generateSkalaAngsuranService := skalaangsuran.NewService(generateSkalaAngsuranRepo)
+	generateSkalaAngsuranHandler := skalaangsuran.NewHandler(generateSkalaAngsuranService)
+
+	s.Router.GET("/Customer", stagingCustomerHandler.GetDataCustomer)
+	s.Router.GET("/Generate", generateSkalaAngsuranHandler.GenerateSkalaAngsuran)
 }
