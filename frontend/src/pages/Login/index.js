@@ -19,9 +19,11 @@ export const Login = () => {
                         <Form.Label>Kata Sandi</Form.Label>
                         <Form.Control id="password" type="password" required />
                     </Form.Group>
-                    <Button className="loginbutton w-100" type="submit">
-                        MASUK
-                    </Button>
+                    <Link to={"/home"}>
+                        <Button className="loginbutton w-100" type="submit">
+                            MASUK
+                        </Button>
+                    </Link>
                 </Form>
 
             </div>
