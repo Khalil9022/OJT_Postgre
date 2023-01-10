@@ -1,24 +1,48 @@
-import React from 'react'
-import { Menu, MenuItem, Sidebar, useProSidebar } from 'react-pro-sidebar'
+import React, { useEffect, useState } from 'react'
+import { Col, Row, Table } from 'react-bootstrap'
 import Sidebars from '../../components/Sidebar'
 
 import "./style.css"
 
 const ChecklistPencarian = () => {
-    const { collapseSidebar } = useProSidebar();
 
     return (
-        <div style={{ display: 'flex', height: '100%' }}>
-            <Sidebar>
-                <Menu>
-                    <MenuItem> Documentation</MenuItem>
-                    <MenuItem> Calendar</MenuItem>
-                    <MenuItem> E-commerce</MenuItem>
-                </Menu>
-            </Sidebar>
-            <main>
-                <button onClick={() => collapseSidebar()}>Collapse</button>
-            </main>
+        <div>
+            <Row className='w-100'>
+                <Col xs={2}><Sidebars /></Col>
+                <Col>
+                    <Table striped hover >
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td colSpan={2}>Larry the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
+
         </div>
     )
 }
