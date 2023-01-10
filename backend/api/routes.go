@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-contrib/cors"
+	"github.com/khalil9022/OJT_Postgre/controller/checklistpencairan"
 	"github.com/khalil9022/OJT_Postgre/controller/procesvalidation"
 	"github.com/khalil9022/OJT_Postgre/controller/skalaangsuran"
 )
@@ -20,6 +21,13 @@ func (s *server) SetupRouter() {
 	generateSkalaAngsuranService := skalaangsuran.NewService(generateSkalaAngsuranRepo)
 	generateSkalaAngsuranHandler := skalaangsuran.NewHandler(generateSkalaAngsuranService)
 
+	checklistpencairanRepo := checklistpencairan.NewRepository(s.DB)
+	checklistpencairanService := checklistpencairan.NewService(checklistpencairanRepo)
+	checklistpencairanHandler := checklistpencairan.NewHandler(checklistpencairanService)
+
 	s.Router.GET("/Customer", stagingCustomerHandler.PencairanKredit)
 	s.Router.GET("/Generate", generateSkalaAngsuranHandler.GenerateSkalaAngsuran)
+
+	s.Router.GET("/branch", checklistpencairanHandler.GetDataBranch)
+	s.Router.GET("/company", checklistpencairanHandler.GetDataCompany)
 }

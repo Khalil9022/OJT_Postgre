@@ -23,12 +23,12 @@ func MakeServer(db *gorm.DB) *server {
 
 	//Auto Run Service
 	c := cron.New()
-	c.AddFunc("@every 1m", func() {
+	c.AddFunc("@every 30m", func() {
 		stagingCustomer := procesvalidation.NewRepository(s.DB)
 		stagingCustomer.PencairanKredit()
 	})
 
-	c.AddFunc("@every 2m", func() {
+	c.AddFunc("@every 30m", func() {
 		generateSkalaAngsuran := skalaangsuran.NewRepository(s.DB)
 		generateSkalaAngsuran.GenerateSkalaAngsuran()
 	})
