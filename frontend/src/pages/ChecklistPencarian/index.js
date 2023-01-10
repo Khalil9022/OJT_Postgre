@@ -6,18 +6,29 @@ import "./style.css"
 
 const ChecklistPencarian = () => {
 
+    const [data, setdata] = useState(true)
+
+    const selectData = (props) => {
+        setdata(props);
+    }
+
     return (
         <div>
             <Row className='w-100'>
-                <Col xs={2}><Sidebars /></Col>
-                <Col>
-                    <Table striped hover >
+                <Col xs={data ? 2 : 1}><Sidebars selectData={selectData} /></Col>
+                <Col className='table'>
+                    <h1 className='text-center'>Data</h1>
+                    <Table striped hover  >
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>PPK</th>
+                                <th>Name</th>
+                                <th>Channeling Company</th>
+                                <th>Drawdown Date</th>
+                                <th>Loan Amount</th>
+                                <th>Loan Period</th>
+                                <th>Interest Eff</th>
+                                <th>Check</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,17 +37,10 @@ const ChecklistPencarian = () => {
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td colSpan={2}>Larry the Bird</td>
-                                <td>@twitter</td>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
                             </tr>
                         </tbody>
                     </Table>

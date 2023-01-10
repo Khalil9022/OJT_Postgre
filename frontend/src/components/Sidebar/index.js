@@ -42,6 +42,14 @@ const Sidebars = ({ selectData }) => {
                             );
                         })}
                     </ul>
+                    <div>
+                        <li className=' nav-text position-absolute bottom-0'>
+                            <Link to='/'>
+                                <FaIcons.FaDoorClosed />
+                                <span >Keluar</span>
+                            </Link>
+                        </li>
+                    </div>
                 </nav>
             </IconContext.Provider>
         </>
