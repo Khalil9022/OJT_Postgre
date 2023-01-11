@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Dropdown, Form, Row, Table } from 'react-bootstrap'
-import Sidebars from '../../components/Sidebar'
+import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap'
 import axios from "axios";
 import { API_URL } from '../../utils/constant'
 
 import "./style.css"
+import swal from 'sweetalert';
 
 const ChecklistPencarian = () => {
 
     const [branch, setbranch] = useState()
     const [company, setcompany] = useState()
-    const [opsibranch, setopsibranch] = useState()
-    const [opsicompany, setopsicompany] = useState()
-    const [datestart, setdatestart] = useState()
-    const [dateend, setdateend] = useState()
+    const [opsibranch, setopsibranch] = useState("000")
+    const [opsicompany, setopsicompany] = useState("000")
+    const [datestart, setdatestart] = useState("")
+    const [dateend, setdateend] = useState("")
     const [allData, setallData] = useState()
 
     const changeBranch = (data) => {
@@ -30,6 +30,35 @@ const ChecklistPencarian = () => {
 
     const changedateend = (data) => {
         setdateend(data)
+    }
+
+    const handleSubmit = () => {
+        if (datestart !== "" && dateend !== "") {
+
+            const apifilter = async () => {
+                await axios.post(API_URL + "spesifikcustomer", {
+                    branch: opsibranch,
+                    company: opsicompany,
+                    start: datestart,
+                    end: dateend
+                }).then((result2) => {
+                    setallData(result2.data)
+                }).catch((error) => {
+                    console.log("Error, tidak dapat parsing data ke API", error);
+                })
+            }
+
+            apifilter()
+
+            swal("Sukses", "Sukses Melakukan Filter", "success");
+        } else {
+            swal("Gagal", "Silahkan isi input datenya terlebih dahulu", "warning");
+        }
+
+    }
+
+    const handleApprove = () => {
+
     }
 
     useEffect(() => {
@@ -58,11 +87,11 @@ const ChecklistPencarian = () => {
                         <Row className='mb-4 '>
                             <Col className='d-flex align-items-center ms-5' xs={3}>
                                 <span>Branch</span>
-                                <Form.Select size="sm">
-                                    <option>{opsibranch ? opsibranch : "Select Branch"}</option>
+                                <Form.Select size="sm" onChange={(e) => changeBranch(e.target.value)}>
+                                    <option>{opsibranch ? "000 - AllBranch" : "Select Branch"}</option>
                                     {branch?.data.map((item, index) => (
-                                        <option onClick={() => changeBranch(item.code)}>
-                                            {item.code}
+                                        <option value={item.code}>
+                                            00{item.code}
                                         </option>
                                     ))}
                                 </Form.Select>
@@ -70,10 +99,10 @@ const ChecklistPencarian = () => {
 
                             <Col className='d-flex align-items-center' xs={3}>
                                 <span>Company</span>
-                                <Form.Select size="sm">
-                                    <option>{opsicompany ? opsicompany : "Select Company"}</option>
+                                <Form.Select size="sm" onChange={(e) => changeCompany(e.target.value)}>
+                                    <option>{opsicompany ? "AllCompany" : "Select Company"}</option>
                                     {company?.data.map((item, index) => (
-                                        <option onClick={() => changeCompany(item.company_short_name)}>
+                                        <option value={item.company_short_name}>
                                             {item.company_short_name}
                                         </option>
                                     ))}
@@ -91,7 +120,7 @@ const ChecklistPencarian = () => {
                             </Col>
 
                             <Col className='d-flex align-items-center'>
-                                <Button className='btn btn-outline-primary btn-sm'>
+                                <Button className='btn btn-outline-primary btn-sm' onClick={handleSubmit}>
                                     Submit
                                 </Button>
                             </Col>
@@ -113,7 +142,8 @@ const ChecklistPencarian = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {allData?.data.map((item, index) => (
+
+                                {allData?.data ? allData.data.map((item, index) => (
                                     <>
                                         <tr key={index}>
                                             <td>{item.PPK}</td>
@@ -126,9 +156,15 @@ const ChecklistPencarian = () => {
                                             <td><Form.Check name="check" /></td>
                                         </tr>
                                     </>
-                                ))}
+                                ))
+
+                                    : <td className='text-center border' colSpan={8}><b>Tidak ada Data</b></td>
+                                }
                             </tbody>
                         </Table>
+                        <Button className='btn btn-success btn-sm' onClick={handleApprove}>
+                            Approve
+                        </Button>
                     </Col>
                 </Row>
             </Container>

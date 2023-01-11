@@ -46,8 +46,8 @@ func (h *Handler) GetDataCompany(c *gin.Context) {
 	})
 }
 
-func (h *Handler) GetAllCustomer(c *gin.Context) {
-	datacustomer, err := h.Service.GetAllCustomer()
+func (h *Handler) GetAllCustomerAs9(c *gin.Context) {
+	datacustomer, err := h.Service.GetAllCustomerAs9()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Gagal Mengambil Data",
@@ -60,4 +60,28 @@ func (h *Handler) GetAllCustomer(c *gin.Context) {
 		"message": "Sukses Mengambil data Customer :D",
 		"data":    datacustomer,
 	})
+}
+
+func (h *Handler) GetSpesifikCustomerAs9(c *gin.Context) {
+	var req DataRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+
+		c.JSON(http.StatusBadRequest, gin.H{"error": "error"})
+		return
+	}
+
+	datacustomer, err := h.Service.GetSpesifikCustomerAs9(req)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Gagal Mengambil Data",
+			"error":   err,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Sukses Mengupdate data Customer :D",
+		"data":    datacustomer,
+	})
+
 }

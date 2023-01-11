@@ -11,6 +11,7 @@ func (s *server) SetupRouter() {
 	s.Router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"POST", "DELETE", "PUT", "GET"},
+		AllowHeaders: []string{"Origin", "Accept", "Content-Type", "Authorization", "Access-Control-Allow-Origin"},
 	}))
 
 	stagingCustomerRepo := procesvalidation.NewRepository(s.DB)
@@ -30,5 +31,6 @@ func (s *server) SetupRouter() {
 
 	s.Router.GET("/branch", checklistpencairanHandler.GetDataBranch)
 	s.Router.GET("/company", checklistpencairanHandler.GetDataCompany)
-	s.Router.GET("/allcustomer", checklistpencairanHandler.GetAllCustomer)
+	s.Router.GET("/allcustomer", checklistpencairanHandler.GetAllCustomerAs9)
+	s.Router.POST("/spesifikcustomer", checklistpencairanHandler.GetSpesifikCustomerAs9)
 }

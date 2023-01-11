@@ -6,7 +6,8 @@ import (
 )
 
 type Repository interface {
-	GetAllCustomer() ([]Respones, error)
+	GetAllCustomerAs9() ([]Respones, error)
+	GetSpesifikCustomerAs9(DataRequest) ([]Respones, error)
 	GetDataBranch() ([]models.Branch_Tabs, error)
 	GetDataCompany() ([]models.Mst_Company_Tabs, error)
 }
@@ -43,11 +44,34 @@ func (r *repository) GetDataCompany() ([]models.Mst_Company_Tabs, error) {
 	return mst_company_tabs, nil
 }
 
-func (r *repository) GetAllCustomer() ([]Respones, error) {
+func (r *repository) GetAllCustomerAs9() ([]Respones, error) {
 
 	var customer_data_tabs []Respones
 
 	res := r.db.Table("customer_data_tabs").Select("customer_data_tabs.ppk, customer_data_tabs.name,customer_data_tabs.channeling_company, customer_data_tabs.drawdown_date, loan_data_tabs.loan_amount,loan_data_tabs.loan_period,loan_data_tabs.interest_effective").Joins("left join loan_data_tabs on loan_data_tabs.custcode = customer_data_tabs.custcode").Where("approval_status=?", "9").Scan(&customer_data_tabs)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return customer_data_tabs, nil
+}
+
+func (r *repository) GetSpesifikCustomerAs9(req DataRequest) ([]Respones, error) {
+	branch := ""
+	company := ""
+	if req.Branch == "000" {
+		branch = "%%"
+	} else {
+		branch = req.Branch
+	}
+	if req.Company == "000" {
+		company = "%%"
+	} else {
+		company = req.Company
+	}
+
+	var customer_data_tabs []Respones
+	res := r.db.Table("customer_data_tabs").Select("customer_data_tabs.ppk, customer_data_tabs.name,customer_data_tabs.channeling_company, customer_data_tabs.drawdown_date, loan_data_tabs.loan_amount,loan_data_tabs.loan_period,loan_data_tabs.interest_effective").Joins("left join loan_data_tabs on loan_data_tabs.custcode = customer_data_tabs.custcode").Where("approval_status=? AND branch LIKE ? AND channeling_company LIKE ? AND drawdown_date BETWEEN ? AND ?", "9", branch, company, req.Start, req.End).Scan(&customer_data_tabs)
 	if res.Error != nil {
 		return nil, res.Error
 	}

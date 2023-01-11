@@ -3,7 +3,8 @@ package checklistpencairan
 import "github.com/khalil9022/OJT_Postgre/models"
 
 type Service interface {
-	GetAllCustomer() ([]Respones, error)
+	GetAllCustomerAs9() ([]Respones, error)
+	GetSpesifikCustomerAs9(DataRequest) ([]Respones, error)
 	GetDataBranch() ([]models.Branch_Tabs, error)
 	GetDataCompany() ([]models.Mst_Company_Tabs, error)
 }
@@ -26,7 +27,12 @@ func (s *service) GetDataCompany() ([]models.Mst_Company_Tabs, error) {
 	return Data, err
 }
 
-func (s *service) GetAllCustomer() ([]Respones, error) {
-	Data, err := s.repo.GetAllCustomer()
+func (s *service) GetAllCustomerAs9() ([]Respones, error) {
+	Data, err := s.repo.GetAllCustomerAs9()
+	return Data, err
+}
+
+func (s *service) GetSpesifikCustomerAs9(req DataRequest) ([]Respones, error) {
+	Data, err := s.repo.GetSpesifikCustomerAs9(req)
 	return Data, err
 }

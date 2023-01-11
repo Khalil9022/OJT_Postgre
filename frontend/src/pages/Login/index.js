@@ -1,13 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Form, Button, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 import "./style.css"
 import swal from "sweetalert";
 
 export const Login = () => {
-    const navigate = useNavigate();
 
     const [userDetails, setUserDetails] = useState({
         email: "",
