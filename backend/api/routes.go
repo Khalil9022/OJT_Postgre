@@ -30,4 +30,5 @@ func (s *server) SetupRouter() {
 
 	s.Router.GET("/branch", checklistpencairanHandler.GetDataBranch)
 	s.Router.GET("/company", checklistpencairanHandler.GetDataCompany)
+	s.Router.GET("/allcustomer", checklistpencairanHandler.GetAllCustomer)
 }

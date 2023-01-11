@@ -11,10 +11,7 @@ const Home = () => {
     }
 
     return (
-        <Row>
-            <Col xs={data ? 2 : 1}><Sidebars selectData={selectData} /></Col>
-            <Col>Hello</Col>
-        </Row>
+        <div>Hello</div>
 
     )
 }

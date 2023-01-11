@@ -45,3 +45,19 @@ func (h *Handler) GetDataCompany(c *gin.Context) {
 		"data":    datacompany,
 	})
 }
+
+func (h *Handler) GetAllCustomer(c *gin.Context) {
+	datacustomer, err := h.Service.GetAllCustomer()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "Gagal Mengambil Data",
+			"error":   err,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Sukses Mengambil data Customer :D",
+		"data":    datacustomer,
+	})
+}

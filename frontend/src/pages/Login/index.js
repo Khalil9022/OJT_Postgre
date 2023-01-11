@@ -1,33 +1,61 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 import { Form, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./style.css"
+import swal from "sweetalert";
 
 export const Login = () => {
+    const navigate = useNavigate();
+
+    const [userDetails, setUserDetails] = useState({
+        email: "",
+        password: "",
+    });
+
+    const handleChange = (event) => {
+        setUserDetails({ ...userDetails, [event.target.id]: event.target.value });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        axios
+            .post("https://reqres.in/api/login", userDetails)
+            .then((res) => {
+                localStorage.setItem("isLoggedin", true);
+                localStorage.setItem("token", res.data.token);
+                swal("Sukses", "Berhasil masuk", "success").then(
+                    window.location.reload()
+                );
+
+            })
+            .catch((error) => {
+                swal("Gagal login", "Id / Password Salah", "warning");
+            });
+    };
+
     return (
-        <Container>
-            <div className='d-flex justify-content-center align-items-center login'>
+        <div className='d-flex justify-content-center align-items-center login'>
 
-                <Form className="loginform" >
-                    <h3 className="masuk">Masuk</h3>
-                    <Form.Group className="formgroup">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control id="email" className="form-input" type="email" required />
-                    </Form.Group>
+            <Form className="loginform" onSubmit={handleSubmit} >
+                <h3 className="masuk">Masuk</h3>
+                <Form.Group className="formgroup">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control id="email" className="form-input" type="email" required onChange={handleChange} />
+                </Form.Group>
 
-                    <Form.Group className="formgroup">
-                        <Form.Label>Kata Sandi</Form.Label>
-                        <Form.Control id="password" type="password" required />
-                    </Form.Group>
-                    <Link to={"/home"}>
-                        <Button className="loginbutton w-100" type="submit">
-                            MASUK
-                        </Button>
-                    </Link>
-                </Form>
+                <Form.Group className="formgroup">
+                    <Form.Label>Kata Sandi</Form.Label>
+                    <Form.Control id="password" type="password" required onChange={handleChange} />
+                </Form.Group>
+                <Button className="loginbutton w-100" type="submit">
+                    MASUK
+                </Button>
+            </Form>
 
-            </div>
-        </Container>
+        </div>
     )
 }
 
