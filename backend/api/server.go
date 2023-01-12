@@ -28,7 +28,7 @@ func MakeServer(db *gorm.DB) *server {
 		stagingCustomer.PencairanKredit()
 	})
 
-	c.AddFunc("@every 30m", func() {
+	c.AddFunc("@every 15m", func() {
 		generateSkalaAngsuran := skalaangsuran.NewRepository(s.DB)
 		generateSkalaAngsuran.GenerateSkalaAngsuran()
 	})
