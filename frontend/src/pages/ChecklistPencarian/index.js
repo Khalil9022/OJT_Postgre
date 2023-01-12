@@ -16,6 +16,7 @@ const ChecklistPencarian = () => {
     const [dateend, setdateend] = useState("")
     const [allData, setallData] = useState()
     const [checked, setchecked] = useState([])
+    const [currentdate, setcurrentdate] = useState()
 
     const changeBranch = (data) => {
         setopsibranch(data)
@@ -100,6 +101,8 @@ const ChecklistPencarian = () => {
             setallData(result3.data);
         };
 
+        setcurrentdate(new Date().toLocaleString('en-us', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$1-$2'))
+
         fetchData()
     }, [])
 
@@ -138,12 +141,12 @@ const ChecklistPencarian = () => {
 
                             <Col className='d-flex align-items-center' xs={2}>
                                 <span>Start</span>
-                                <Form.Control type="date" onChange={(event) => changedatestart(event.target.value)} />
+                                <Form.Control type="date" defaultValue={currentdate} onChange={(event) => changedatestart(event.target.value)} />
                             </Col>
                             <Col className='d-flex align-items-center' xs={2}>
 
                                 <span>End</span>
-                                <Form.Control type="date" onChange={(event) => changedateend(event.target.value)} />
+                                <Form.Control type="date" defaultValue={currentdate} onChange={(event) => changedateend(event.target.value)} />
                             </Col>
 
                             <Col className='d-flex align-items-center'>

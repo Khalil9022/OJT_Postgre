@@ -30,7 +30,7 @@ func (r *repository) GenerateSkalaAngsuran() ([]models.Customer_Data_Tabs, error
 		return nil, res.Error
 	}
 
-	r.db.Exec("UPDATE customer_data_tabs SET approval_status = 1 WHERE approval_status = 0")
+	r.db.Exec("UPDATE customer_data_tabs SET approval_status = '1' WHERE approval_status = '0'")
 	for _, item := range customer_data_tabs {
 		res = r.db.Where("custcode = ? ", item.Custcode).First(&loan_data_tabs)
 		if res.Error != nil {
