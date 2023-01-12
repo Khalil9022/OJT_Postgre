@@ -1,5 +1,5 @@
 import React from 'react'
-import * as FaIcons from 'react-icons/fa'
+import * as BsIcons from 'react-icons/bs'
 import * as AiIcons from 'react-icons/ai'
 import * as IoIcons from 'react-icons/io'
 
@@ -11,14 +11,14 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Transaksi',
+        title: 'Checklist Pencairan',
         path: '/checklistpencairan',
-        icon: <FaIcons.FaBuffer />,
+        icon: <BsIcons.BsCardChecklist />,
         cName: 'nav-text'
     },
     {
-        title: 'Laporan',
-        path: '/',
+        title: 'Drawdown Report',
+        path: '/report',
         icon: <IoIcons.IoIosPaper />,
         cName: 'nav-text'
     }

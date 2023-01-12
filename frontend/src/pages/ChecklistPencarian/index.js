@@ -15,6 +15,7 @@ const ChecklistPencarian = () => {
     const [datestart, setdatestart] = useState("")
     const [dateend, setdateend] = useState("")
     const [allData, setallData] = useState()
+    const [checked, setchecked] = useState([])
 
     const changeBranch = (data) => {
         setopsibranch(data)
@@ -57,8 +58,34 @@ const ChecklistPencarian = () => {
 
     }
 
-    const handleApprove = () => {
+    const handleChange = (event, ppk) => {
+        // console.log(event.target.checked);
+        // console.log(ppk);
+        if (event.target.checked == true) {
+            setchecked((i) => [...i, ppk])
+        } else {
+            setchecked((i) => i.filter((j) => j != ppk))
+        }
 
+    }
+
+    const handleApprove = () => {
+        console.log(checked);
+        const approvalchange = async () => {
+            await axios.post(API_URL + "updateapproval", {
+                ppk: checked
+            }).then(async () => {
+                const alldata = await axios.get(API_URL + "allcustomer");
+                setallData(alldata.data);
+                swal("Sukses", "Sukses Melakukan Approve", "success");
+            }).catch((error) => {
+                console.log("Error, tidak dapat parsing data ke API", error);
+                swal("Gagal", "Gagal melakukan approve", "warning");
+            })
+        }
+
+        approvalchange()
+        // document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
     }
 
     useEffect(() => {
@@ -152,8 +179,8 @@ const ChecklistPencarian = () => {
                                             <td>{item.DrawdownDate.substring(0, 10)}</td>
                                             <td>{item.LoanAmount}</td>
                                             <td>{item.LoanPeriod}</td>
-                                            <td>{item.InterestEffective}</td>
-                                            <td><Form.Check name="check" /></td>
+                                            <td>{item.InterestEffective}%</td>
+                                            <td><Form.Check name="check" checked={checked.includes(item.PPK) ? true : false} onChange={(e) => handleChange(e, item.PPK)} /></td>
                                         </tr>
                                     </>
                                 ))

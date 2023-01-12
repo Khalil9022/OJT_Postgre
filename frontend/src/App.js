@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import './App.css';
 import Sidebars from "./components/Sidebar";
 import { useEffect, useState } from "react";
+import DrawdownReport from "./pages/DrawdownReport";
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState();
@@ -26,6 +27,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/checklistpencairan" element={<ChecklistPencarian />} />
+              <Route exact path="/report" element={<DrawdownReport />} />
               <Route path="*" element={<Home />} />
             </Routes>
           </div>

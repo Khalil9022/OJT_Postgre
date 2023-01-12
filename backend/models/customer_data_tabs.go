@@ -20,5 +20,4 @@ type Customer_Data_Tabs struct {
 	MotherMaidenName  string    `json:"mother_maiden_name" gorm:"type: varchar(100)"`
 	ChannelingCompany string    `json:"channeling_company" gorm:"type: varchar(100)"`
 	ApprovalStatus    string    `json:"approval_status" gorm:"type: varchar(2)"`
-	Checked           bool      `json:"checked"`
 }

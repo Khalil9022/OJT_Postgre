@@ -8,14 +8,13 @@ import swal from 'sweetalert';
 
 
 
-const Sidebars = ({ selectData }) => {
+const Sidebars = () => {
     const [sidebar, setsidebar] = useState(true)
 
     const navigate = useNavigate()
 
     const showSidebar = () => {
         setsidebar(!sidebar)
-        selectData(!sidebar)
     }
 
     const handleLogout = () => {
@@ -43,7 +42,7 @@ const Sidebars = ({ selectData }) => {
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path}>
                                         {item.icon}
-                                        <span >{item.title}</span>
+                                        <span className='text-span'>{item.title}</span>
                                     </Link>
                                 </li>
                             );
@@ -53,7 +52,7 @@ const Sidebars = ({ selectData }) => {
                         <li className='nav-text position-absolute bottom-0' >
                             <Link onClick={handleLogout}>
                                 <FaIcons.FaDoorClosed />
-                                <span >Keluar</span>
+                                <span className='text-span'>Keluar</span>
                             </Link>
                         </li>
                     </div>

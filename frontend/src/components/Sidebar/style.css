@@ -98,7 +98,7 @@
     align-items: center;
 }
 
-span {
+.text-span {
     margin-left: 16px;
     font-size: 15px;
 }

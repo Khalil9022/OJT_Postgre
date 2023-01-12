@@ -2,7 +2,7 @@ package api
 
 import (
 	"github.com/gin-contrib/cors"
-	"github.com/khalil9022/OJT_Postgre/controller/checklistpencairan"
+	"github.com/khalil9022/OJT_Postgre/controller/pencairanreport"
 	"github.com/khalil9022/OJT_Postgre/controller/procesvalidation"
 	"github.com/khalil9022/OJT_Postgre/controller/skalaangsuran"
 )
@@ -22,15 +22,18 @@ func (s *server) SetupRouter() {
 	generateSkalaAngsuranService := skalaangsuran.NewService(generateSkalaAngsuranRepo)
 	generateSkalaAngsuranHandler := skalaangsuran.NewHandler(generateSkalaAngsuranService)
 
-	checklistpencairanRepo := checklistpencairan.NewRepository(s.DB)
-	checklistpencairanService := checklistpencairan.NewService(checklistpencairanRepo)
-	checklistpencairanHandler := checklistpencairan.NewHandler(checklistpencairanService)
+	pencairanreportRepo := pencairanreport.NewRepository(s.DB)
+	pencairanreportService := pencairanreport.NewService(pencairanreportRepo)
+	pencairanreportHandler := pencairanreport.NewHandler(pencairanreportService)
 
 	s.Router.GET("/Customer", stagingCustomerHandler.PencairanKredit)
 	s.Router.GET("/Generate", generateSkalaAngsuranHandler.GenerateSkalaAngsuran)
 
-	s.Router.GET("/branch", checklistpencairanHandler.GetDataBranch)
-	s.Router.GET("/company", checklistpencairanHandler.GetDataCompany)
-	s.Router.GET("/allcustomer", checklistpencairanHandler.GetAllCustomerAs9)
-	s.Router.POST("/spesifikcustomer", checklistpencairanHandler.GetSpesifikCustomerAs9)
+	s.Router.GET("/branch", pencairanreportHandler.GetDataBranch)
+	s.Router.GET("/company", pencairanreportHandler.GetDataCompany)
+	s.Router.GET("/allcustomer", pencairanreportHandler.GetAllCustomerAs9)
+	s.Router.POST("/spesifikcustomer", pencairanreportHandler.GetSpesifikCustomerAs9)
+	s.Router.GET("/allcustomerreport", pencairanreportHandler.GetAllCustomerAs01)
+	s.Router.POST("/spesifikcustomerreport", pencairanreportHandler.GetSpesifikCustomerAs01)
+	s.Router.POST("/updateapproval", pencairanreportHandler.UpdateApprovalStatus)
 }
