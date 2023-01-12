@@ -122,8 +122,8 @@ const DrawdownReport = () => {
 
                         </Row>
 
-                        <Table hover bordered={true} className='text-center' >
-                            <thead>
+                        <Table hover striped bordered={true} size="md">
+                            <thead style={{ color: "white", background: "black" }}>
                                 <tr>
 
                                     <th>PPK</th>

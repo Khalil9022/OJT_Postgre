@@ -154,9 +154,9 @@ const ChecklistPencarian = () => {
 
                         </Row>
 
-                        <Table hover bordered={true} className='text-center' >
-                            <thead>
-                                <tr>
+                        <Table hover striped bordered={true} size="md">
+                            <thead style={{ color: "white", background: "black" }}>
+                                <tr >
 
                                     <th>PPK</th>
                                     <th>Name</th>
@@ -165,7 +165,7 @@ const ChecklistPencarian = () => {
                                     <th>Loan Amount</th>
                                     <th>Loan Period</th>
                                     <th>Interest Eff</th>
-                                    <th>Check</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
